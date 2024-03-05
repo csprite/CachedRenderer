@@ -32,9 +32,9 @@ $(error Unknown Build Type "$(BUILD_TYPE)")
 	endif
 endif
 
--include $(DEPENDS)
-
 all: $(BIN)
+
+-include $(DEPENDS)
 
 $(BUILD)/%.c.o: %.c
 	@echo "CC -" $<
