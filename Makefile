@@ -1,12 +1,12 @@
 CC:=gcc
-CFLAGS:=-Isrc/ -Ivendor/ -std=c99 -Wall -MMD -MP -DFENSTER_HEADER=1
+CFLAGS:=-Isrc/ -Ivendor/ -std=c99 -Wall -MMD -MP
 LFLAGS:=
 
 BUILD      := build
 BUILD_TYPE := Debug
 BIN        := $(BUILD)/CachedRenderer
 
-SOURCES := src/main.c vendor/fenster/impl.c
+SOURCES := src/main.c vendor/fenster/fenster.c
 OBJECTS := $(SOURCES:.c=.c.o)
 OBJECTS := $(patsubst %,$(BUILD)/%,$(OBJECTS))
 DEPENDS := $(OBJECTS:.o=.d)

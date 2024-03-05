@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "fenster/fenster.h"
 
 #define W 320
