@@ -1,12 +1,12 @@
 CC:=gcc
-CFLAGS:=-Isrc/ -Iinclude/ -std=c99 -Wall -MMD -MP
+CFLAGS:=-Isrc/ -Ivendor/ -std=c99 -Wall -MMD -MP -DFENSTER_HEADER=1
 LFLAGS:=
 
 BUILD      := build
 BUILD_TYPE := Debug
 BIN        := $(BUILD)/CachedRenderer
 
-SOURCES := src/main.c
+SOURCES := src/main.c vendor/fenster/impl.c
 OBJECTS := $(SOURCES:.c=.c.o)
 OBJECTS := $(patsubst %,$(BUILD)/%,$(OBJECTS))
 DEPENDS := $(OBJECTS:.o=.d)
@@ -29,6 +29,17 @@ else
 		CFLAGS+=-O3
 	else
 $(error Unknown Build Type "$(BUILD_TYPE)")
+	endif
+endif
+
+ifeq ($(OS),Windows_NT)
+	LFLAGS += -lgdi32
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Darwin)
+		LFLAGS += -framework Cocoa
+	else
+		LFLAGS += -lX11
 	endif
 endif
 
