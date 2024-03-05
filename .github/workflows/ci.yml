@@ -16,6 +16,12 @@ jobs:
       with:
         submodules: recursive
 
+    - name: Install X (Linux)
+      if: ${{ matrix.os == 'ubuntu-latest' }}
+      run: |
+        sudo apt-get update -y
+        sudo apt-get install xorg-dev -y
+
     - name: Install Mingw64 (Windows)
       if: ${{ matrix.os == 'windows-latest' }}
       run: |
