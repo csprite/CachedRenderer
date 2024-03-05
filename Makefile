@@ -32,19 +32,6 @@ $(error Unknown Build Type "$(BUILD_TYPE)")
 	endif
 endif
 
-UNAME_S:=$(shell uname -s)
-
-ifeq ($(findstring BSD,$(UNAME_S)),BSD)
-	CFLAGS+=-DTARGET_BSD=1
-	LFLAGS+=-lexecinfo
-endif
-ifeq ($(UNAME_S),Linux)
-	CFLAGS+=-DTARGET_LINUX=1
-endif
-ifeq ($(UNAME_S),Darwin)
-	CFLAGS+=-DTARGET_OSX=1
-endif
-
 -include $(DEPENDS)
 
 all: $(BIN)

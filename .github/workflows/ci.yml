@@ -61,7 +61,7 @@ jobs:
 
     - uses: actions/download-artifact@v3
       with:
-        name: linux-latest
+        name: ubuntu-latest
         path: ./linux-latest
 
     - uses: actions/download-artifact@v3
