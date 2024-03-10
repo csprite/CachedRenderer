@@ -1,12 +1,12 @@
 CC:=gcc
 CFLAGS:=-Isrc/ -Ivendor/ -std=c99 -Wall -MMD -MP
-LFLAGS:=
+LFLAGS:=-lm
 
 BUILD      := build
 BUILD_TYPE := Debug
 BIN        := $(BUILD)/CachedRenderer
 
-SOURCES := src/main.c vendor/miniwin/miniwin.c
+SOURCES := src/main.c vendor/miniwin/miniwin.c vendor/stb_truetype/impl.c
 OBJECTS := $(SOURCES:.c=.c.o)
 OBJECTS := $(patsubst %,$(BUILD)/%,$(OBJECTS))
 DEPENDS := $(OBJECTS:.o=.d)
