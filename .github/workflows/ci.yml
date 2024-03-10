@@ -25,7 +25,7 @@ jobs:
     - name: Install Mingw64 (Windows)
       if: ${{ matrix.os == 'windows-latest' }}
       run: |
-        choco install make mingw
+        choco install mingw
 
     - name: Build (Non-Windows)
       if: ${{ matrix.os != 'windows-latest' }}
@@ -43,49 +43,4 @@ jobs:
         name: ${{ matrix.os }}
         if-no-files-found: error
         path: ./build/
-
-  update-ci-release:
-    needs: [build]
-    permissions:
-      contents: write
-    if: |
-      github.event_name == 'push' ||
-      github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
-    steps:
-    - uses: dev-drprasad/delete-tag-and-release@v0.2.1
-      with:
-        tag_name: latest-git
-        delete_release: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - uses: actions/download-artifact@v3
-      with:
-        name: windows-latest
-        path: ./windows-latest
-
-    - uses: actions/download-artifact@v3
-      with:
-        name: ubuntu-latest
-        path: ./linux-latest
-
-    - name: Rename
-      run: |
-        mv ./windows-latest/CachedRenderer.exe ./CachedRenderer-win.exe
-        mv ./linux-latest/CachedRenderer ./CachedRenderer-linux
-
-    - uses: ncipollo/release-action@v1
-      with:
-        name: "CachedRenderer Nightly Build"
-        body: "this release is not for daily use."
-        tag: "nightly"
-        commit: "master"
-        prerelease: true
-        allowUpdates: true
-        generateReleaseNotes: true
-        artifactErrorsFailBuild: true
-        artifacts: |
-          ./CachedRenderer-win.exe
-          ./CachedRenderer-linux
 
