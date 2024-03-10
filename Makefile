@@ -6,7 +6,7 @@ BUILD      := build
 BUILD_TYPE := Debug
 BIN        := $(BUILD)/CachedRenderer
 
-SOURCES := src/main.c vendor/fenster/fenster.c
+SOURCES := src/main.c vendor/miniwin/miniwin.c
 OBJECTS := $(SOURCES:.c=.c.o)
 OBJECTS := $(patsubst %,$(BUILD)/%,$(OBJECTS))
 DEPENDS := $(OBJECTS:.o=.d)
@@ -33,12 +33,14 @@ $(error Unknown Build Type "$(BUILD_TYPE)")
 endif
 
 ifeq ($(OS),Windows_NT)
+	CFLAGS += -DMWIN_BACKEND_WIN32=1
 	LFLAGS += -lgdi32
 else
 	UNAME_S := $(shell uname -s)
 	ifeq ($(UNAME_S),Darwin)
 		LFLAGS += -framework Cocoa
 	else
+		CFLAGS += -DMWIN_BACKEND_X11=1
 		LFLAGS += -lX11
 	endif
 endif
