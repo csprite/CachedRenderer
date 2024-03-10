@@ -70,16 +70,10 @@ jobs:
         name: ubuntu-latest
         path: ./linux-latest
 
-    # - uses: actions/download-artifact@v3
-      # with:
-        # name: macos-latest
-        # path: ./macos-latest
-
     - name: Rename
       run: |
         mv ./windows-latest/CachedRenderer.exe ./CachedRenderer-win.exe
         mv ./linux-latest/CachedRenderer ./CachedRenderer-linux
-        # mv ./macos-latest/CachedRenderer ./CachedRenderer-macos
 
     - uses: ncipollo/release-action@v1
       with:
@@ -94,5 +88,4 @@ jobs:
         artifacts: |
           ./CachedRenderer-win.exe
           ./CachedRenderer-linux
-          # ./CachedRenderer-macos
 
