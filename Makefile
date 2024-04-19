@@ -6,7 +6,7 @@ BUILD      := build
 BUILD_TYPE := Debug
 BIN        := $(BUILD)/CachedRenderer
 
-SOURCES := src/main.c vendor/miniwin/miniwin.c vendor/stb_truetype/impl.c
+SOURCES := src/main.c src/renderer.c vendor/miniwin/miniwin.c vendor/stb_truetype/impl.c
 OBJECTS := $(SOURCES:.c=.c.o)
 OBJECTS := $(patsubst %,$(BUILD)/%,$(OBJECTS))
 DEPENDS := $(OBJECTS:.o=.d)
